@@ -29,7 +29,7 @@
 					<p:row>
 						<p:column>
 							<center>
-								<p:commandLink styleClass="ui-icon ui-icon-pencil" title="#{messages.editar_evento}" 
+								<p:commandLink styleClass="ui-icon ui-icon-pencil" ajax="true" title="#{messages.editar_evento}" 
 											   action="#{cadastrarEventoMB.editarEvento}" update="@form">
 									<f:setPropertyActionListener value="#{evento}" target="#{cadastrarEventoMB.eventoDTO}"/>
 								</p:commandLink>
@@ -37,7 +37,10 @@
 						</p:column>
 						<p:column>
 							<center>
-								<p:commandLink styleClass="ui-icon ui-icon-trash" title="#{messages.remover_evento}"/>								
+								<p:commandLink styleClass="ui-icon ui-icon-trash" ajax="true" title="#{messages.remover_evento}"
+											   action="#{cadastrarEventoMB.excluirEvento}" update="@form">
+									<f:setPropertyActionListener value="#{evento}" target="#{cadastrarEventoMB.eventoDTO}"/>
+								</p:commandLink>								
 							</center>
 						</p:column>
 					</p:row>					

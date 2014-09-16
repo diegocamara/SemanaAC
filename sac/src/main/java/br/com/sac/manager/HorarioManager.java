@@ -29,10 +29,22 @@ public class HorarioManager implements IHorarioManager {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void removerHorarios(List<Horario> horarios) {
+		horarioDAO.deleteAll(horarios);
+	}
+
+	@Override
 	@Transactional(readOnly = true)
-	public List<HorarioDTO> consultarHorarios(int eventoId) {
+	public List<HorarioDTO> consultarHorariosDTO(int eventoId) {
 		List<Horario> horarios = horarioDAO.consultarHorarios(eventoId);
 		return obterListaHorarioDTO(horarios);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Horario> consultarHorarios(int eventoId) {
+		return horarioDAO.consultarHorarios(eventoId);
 	}
 
 	private List<HorarioDTO> obterListaHorarioDTO(List<Horario> horarios) {
@@ -128,6 +140,7 @@ public class HorarioManager implements IHorarioManager {
 
 	private Horario obterHorario(HorarioDTO horarioDTO) {
 		Horario horario = new Horario();
+		horario.setId(horarioDTO.getId());
 		horario.setDiaSemana(horarioDTO.getDiaSemana());
 		horario.setHoraInicio(horarioDTO.getHoraInicio() == null ? null
 				: LocalDateTime.fromDateFields(horarioDTO.getHoraInicio()));

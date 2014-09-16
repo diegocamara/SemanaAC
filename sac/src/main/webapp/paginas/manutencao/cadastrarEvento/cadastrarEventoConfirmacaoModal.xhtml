@@ -12,7 +12,7 @@
 	<p:dialog id="cadastrarEventoConfirmacaoModal"
 		visible="#{cadastrarEventoMB.exibirModalConfirmacaoEvento}"
 		widgetVar="cadastrarEventoConfirmacaoModal" closable="false"
-		draggable="false" width="700" height="150" resizable="false">
+		draggable="false" width="700" height="200" resizable="false">
 
 		<f:facet name="header">			
 				<h:outputText value="#{messages.titulo_modal_confirmacao}"/>
@@ -45,6 +45,14 @@
 			</p:row>
 			<p:row>
 				<p:column>
+					<h:outputText value="#{messages.numero_vagas}:" style="font-weight:bold;text-align:right;"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cadastrarEventoMB.eventoDTO.numeroVagas}"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
 					<h:outputText value="#{messages.descricao}:" style="font-weight:bold;text-align:right;"/>
 				</p:column>
 				<p:column>
@@ -69,11 +77,11 @@
 				<p:commandButton id="buttonConfirmarCadastrarEvento"
 					value="#{messages.confirmar}"
 					action="#{cadastrarEventoMB.confirmarCadastrarEvento}"					
-					oncomplete="PF('cadastrarEventoConfirmacaoModal').hide()" />
+					update="@form" />
 				<p:commandButton id="buttonCancelarCadastrarEvento"
 					value="#{messages.cancelar}"
 					action="#{cadastrarEventoMB.cancelarModal}"
-					oncomplete="PF('cadastrarEventoConfirmacaoModal').hide()" />
+					update="@form" />
 			</center>
 		</f:facet>
 

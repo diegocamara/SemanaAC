@@ -8,10 +8,12 @@ import br.com.sac.dto.EventoFiltroDTO;
 
 public interface IEventoManager {
 
-	void inserirEvento(EventoDTO eventoDTO, List<Horario> horarios);
+	void inserirEvento(EventoDTO eventoDTO);
 	
 	boolean isEventoValido(EventoDTO eventoDTO, List<Horario> horarios);
 	
 	List<EventoDTO> consultarEventos(EventoFiltroDTO eventoFiltroDTO);
+	
+	void excluirEvento(EventoDTO eventoDTO);
 	
 }

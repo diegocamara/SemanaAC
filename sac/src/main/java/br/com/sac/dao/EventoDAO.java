@@ -43,14 +43,22 @@ public class EventoDAO extends AbstractDAO<Evento> {
 		projectionList.add(Projections.property("numeroVagas"), "numeroVagas");
 		projectionList.add(Projections.property("nome"), "nome");
 		projectionList.add(Projections.property("descricao"), "descricao");
-		projectionList.add(Projections.property("nomeProfessor"), "nomeProfessor");
+		projectionList.add(Projections.property("nomeProfessor"),
+				"nomeProfessor");
 		projectionList.add(Projections.property("ano"), "ano");
 
 		criteria.setProjection(projectionList);
-		
+
 		setResultTransformer(criteria, EventoDTO.class);
 
 		return collection(criteria, EventoDTO.class);
+	}
+
+	@Override
+	public Evento findById(int objectId) {		
+		Criteria criteria = createCriteria();
+		criteria.add(Restrictions.eq("id", objectId));		
+		return uniqueResult(criteria);
 	}
 
 }

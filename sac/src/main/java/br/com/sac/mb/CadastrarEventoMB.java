@@ -60,6 +60,7 @@ public class CadastrarEventoMB extends AbstractMB {
 
 	public void cadastrarEvento() {
 		setOperacao(OperacaoEnum.CADASTRO);
+		setEventoDTO(new EventoDTO());
 	}
 
 	public void editarEvento() {
@@ -67,19 +68,21 @@ public class CadastrarEventoMB extends AbstractMB {
 	}
 
 	public void excluirEvento() {
-		setOperacao(OperacaoEnum.EXCLUSAO);
+		setOperacao(OperacaoEnum.EXCLUSAO);		
+		eventoManager.excluirEvento(eventoDTO);
+		carregarEventos();
 	}
 
 	public void listarEventos() {
-		setOperacao(OperacaoEnum.LISTAGEM);		
+		setOperacao(OperacaoEnum.LISTAGEM);
 	}
 
-	public void confirmarCadastrarEvento() {
-		List<Horario> horarios = horarioManager.obterHorarios(eventoDTO
-				.getHorarios());
-		eventoManager.inserirEvento(eventoDTO, horarios);
+	public void confirmarCadastrarEvento() {		
+		eventoManager.inserirEvento(eventoDTO);
 		setOperacao(OperacaoEnum.LISTAGEM);
-		carregarEventos();		
+		setEventoDTO(null);
+		setExibirModalConfirmacaoEvento(false);
+		carregarEventos();
 	}
 
 	public void cancelarModal() {
@@ -92,7 +95,7 @@ public class CadastrarEventoMB extends AbstractMB {
 
 	public void removerHorario() {
 		int quantidadeHorarios = getEventoDTO().getHorarios().size();
-		if (quantidadeHorarios > 1) {
+		if (quantidadeHorarios > 1) {			
 			getEventoDTO().getHorarios().remove(quantidadeHorarios - 1);
 		}
 	}

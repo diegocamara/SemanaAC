@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.LocalDateTime;
 
+import br.com.sac.domain.Evento;
 import br.com.sac.util.ConstantesMensagens;
 import br.com.sac.util.MensagensUtil;
 import br.com.sac.util.SacSystemUtil;
@@ -19,6 +20,7 @@ public class HorarioDTO implements Serializable {
 	private LocalDateTime diaSemana;
 	private Date horaInicio;
 	private Date horaFim;
+	private Evento evento;
 
 	public String getDescricaoDia() {
 		return SacSystemUtil.obterDescricaoLocalDateTime(diaSemana);
@@ -68,6 +70,14 @@ public class HorarioDTO implements Serializable {
 
 	public void setDiaSemana(LocalDateTime diaSemana) {
 		this.diaSemana = diaSemana;
+	}
+
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
 	}
 
 	@Override

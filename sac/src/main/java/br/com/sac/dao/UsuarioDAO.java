@@ -42,4 +42,13 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
 		return uniqueResult(criteria);
 	}
 
+	@Override
+	public Usuario findById(int objectId) {
+		Criteria criteria = createCriteria();
+		criteria.add(Restrictions.eq("id", objectId));		
+		return uniqueResult(criteria);
+	}
+
+	
+
 }

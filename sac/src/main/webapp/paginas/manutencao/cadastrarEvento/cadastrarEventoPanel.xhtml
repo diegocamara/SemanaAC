@@ -24,7 +24,12 @@
 			</p:row>
 			<p:row>
 				<p:column>
-					<p:inputText id="anoEvento" value="#{cadastrarEventoMB.eventoDTO.ano}" placeholder="#{messages.ano}" style="width:10%;"/>
+					<p:inputMask id="anoEvento" value="#{cadastrarEventoMB.eventoDTO.ano}" placeholder="#{messages.ano}" mask="9999" style="width:10%;"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:inputMask id="numeroVagas" value="#{cadastrarEventoMB.eventoDTO.numeroVagas}" placeholder="#{messages.numero_vagas}" mask="99" style="width:10%;" />
 				</p:column>
 			</p:row>
 			<p:row>

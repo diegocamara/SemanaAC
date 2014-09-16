@@ -36,5 +36,21 @@ public interface IHorarioManager {
 	 * @param eventoId
 	 * @return
 	 */
-	List<HorarioDTO> consultarHorarios(int eventoId);
+	List<HorarioDTO> consultarHorariosDTO(int eventoId);
+
+	/**
+	 * Consulta uma lista de horarios relacionados com um evento especifico.
+	 * 
+	 * @param eventoId
+	 * @return
+	 */
+	List<Horario> consultarHorarios(int eventoId);
+
+	/**
+	 * Remove uma lista de horarios.
+	 * 
+	 * @param horarios
+	 */
+	void removerHorarios(List<Horario> horarios);
+
 }

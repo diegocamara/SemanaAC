@@ -10,17 +10,24 @@ import org.springframework.stereotype.Repository;
 import br.com.sac.domain.Horario;
 
 @Repository
-public class HorarioDAO extends AbstractDAO<Horario>{
+public class HorarioDAO extends AbstractDAO<Horario> {
 
 	public List<Horario> consultarHorarios(int eventoId) {
-		
+
 		Criteria criteria = createCriteria();
 		criteria.createAlias("evento", "evento");
-		
-		criteria.add(Restrictions.eq("evento.id", eventoId));		
+
+		criteria.add(Restrictions.eq("evento.id", eventoId));
 		criteria.addOrder(Order.asc("id"));
-		
+
 		return collection(criteria, Horario.class);
+	}
+
+	@Override
+	public Horario findById(int objectId) {
+		Criteria criteria = createCriteria();
+		criteria.add(Restrictions.eq("id", objectId));
+		return uniqueResult(criteria);
 	}
 
 }

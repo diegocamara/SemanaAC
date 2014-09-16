@@ -1,10 +1,14 @@
 package br.com.sac.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -20,7 +24,7 @@ public class Evento {
 	private int id;
 
 	@Column(name = "NUMEROVAGAS")
-	private int numeroVagas;
+	private Integer numeroVagas;
 
 	@Column(name = "NOME", columnDefinition = "varchar(2000)")
 	private String nome;
@@ -34,6 +38,9 @@ public class Evento {
 	@Column(name = "ANO", columnDefinition = "char(4)")
 	private String ano;
 
+	@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+	private List<Horario> horarios;
+
 	public int getId() {
 		return id;
 	}
@@ -42,11 +49,11 @@ public class Evento {
 		this.id = id;
 	}
 
-	public int getNumeroVagas() {
+	public Integer getNumeroVagas() {
 		return numeroVagas;
 	}
 
-	public void setNumeroVagas(int numeroVagas) {
+	public void setNumeroVagas(Integer numeroVagas) {
 		this.numeroVagas = numeroVagas;
 	}
 
@@ -80,6 +87,14 @@ public class Evento {
 
 	public void setAno(String ano) {
 		this.ano = ano;
+	}
+
+	public List<Horario> getHorarios() {
+		return horarios;
+	}
+
+	public void setHorarios(List<Horario> horarios) {
+		this.horarios = horarios;
 	}
 
 	@Override

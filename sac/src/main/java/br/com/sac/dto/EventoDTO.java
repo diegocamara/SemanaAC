@@ -12,7 +12,7 @@ public class EventoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
-	private int numeroVagas;
+	private Integer numeroVagas;
 	private String nome;
 	private String descricao;
 	private String nomeProfessor;
@@ -21,7 +21,7 @@ public class EventoDTO implements Serializable {
 
 	public EventoDTO() {
 		setHorarios(new ArrayList<HorarioDTO>());
-		getHorarios().add(new HorarioDTO());
+		getHorarios().add(new HorarioDTO());		
 	}
 
 	public int getId() {
@@ -32,11 +32,11 @@ public class EventoDTO implements Serializable {
 		this.id = id;
 	}
 
-	public int getNumeroVagas() {
+	public Integer getNumeroVagas() {
 		return numeroVagas;
 	}
 
-	public void setNumeroVagas(int numeroVagas) {
+	public void setNumeroVagas(Integer numeroVagas) {
 		this.numeroVagas = numeroVagas;
 	}
 

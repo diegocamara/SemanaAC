@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public class AbstractDAO<E> {
+public abstract class AbstractDAO<E> {
 
 	private @Autowired SessionFactory sessionFactory;
 
@@ -27,6 +27,9 @@ public class AbstractDAO<E> {
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
+	@Transactional(readOnly = true)
+	public abstract E findById(int objectId);
+	
 	public Criteria createCriteria() {
 
 		Criteria criteria = getCurrentSession()
@@ -41,14 +44,28 @@ public class AbstractDAO<E> {
 		}
 		getCurrentSession().flush();
 	}
-	
-	public void saveAll(List<E> entityObjects){
+
+	public void saveAll(List<E> entityObjects) {
 		for (E object : entityObjects) {
 			getCurrentSession().save(object);
 		}
 		getCurrentSession().flush();
 	}
-	
+
+	public void deleteAll(List<E> entityObjects) {
+		for (E object : entityObjects) {
+			getCurrentSession().delete(object);
+		}
+		getCurrentSession().flush();
+	}
+
+	public void saveOrUpdate(Object... entityObjects) {
+		for (Object object : entityObjects) {
+			getCurrentSession().saveOrUpdate(object);
+		}
+		getCurrentSession().flush();
+	}
+
 	public void update(Object... entityObject) {
 		for (Object object : entityObject) {
 			getCurrentSession().update(object);
@@ -75,11 +92,12 @@ public class AbstractDAO<E> {
 	public <T> T uniqueResult(Criteria criteria) {
 		return (T) criteria.uniqueResult();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public <T> List<T> collection(Criteria criteria, Class<T> clazz){
+	public <T> List<T> collection(Criteria criteria, Class<T> clazz) {
 		List<T> collection = new ArrayList<T>();
-		collection.addAll(Collections.checkedCollection(criteria.list(), clazz));
+		collection
+				.addAll(Collections.checkedCollection(criteria.list(), clazz));
 		return collection;
 	}
 

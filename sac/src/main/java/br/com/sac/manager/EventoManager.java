@@ -27,9 +27,14 @@ public class EventoManager implements IEventoManager {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void inserirEvento(EventoDTO eventoDTO, List<Horario> horarios) {
+	public void inserirEvento(EventoDTO eventoDTO) {
+
+		List<Horario> horarios = horarioManager.obterHorarios(eventoDTO
+				.getHorarios());
+
 		Evento evento = obterEvento(eventoDTO);
-		eventoDAO.save(evento);
+		eventoDAO.saveOrUpdate(evento);
+		removerHorarios(evento);
 		configurarInserirHorarios(horarios, evento);
 	}
 
@@ -41,17 +46,32 @@ public class EventoManager implements IEventoManager {
 
 		for (EventoDTO eventoDTO : eventos) {
 			List<HorarioDTO> horarios = horarioManager
-					.consultarHorarios(eventoDTO.getId());
+					.consultarHorariosDTO(eventoDTO.getId());
 			eventoDTO.setHorarios(horarios);
 		}
 
 		return eventos;
+	}
+	
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void excluirEvento(EventoDTO eventoDTO) {
+		Evento evento = eventoDAO.findById(eventoDTO.getId());		
+		eventoDAO.delete(evento);		
 	}
 
 	@Override
 	public boolean isEventoValido(EventoDTO eventoDTO, List<Horario> horarios) {
 		return isCamposEventoValidos(eventoDTO)
 				&& horarioManager.isTodosHorariosValidos(horarios);
+	}
+
+	private void removerHorarios(Evento evento) {
+
+		List<Horario> horariosExclusao = horarioManager
+				.consultarHorarios(evento.getId());
+
+		horarioManager.removerHorarios(horariosExclusao);
 	}
 
 	private void configurarInserirHorarios(List<Horario> horarios, Evento evento) {
@@ -65,7 +85,8 @@ public class EventoManager implements IEventoManager {
 		if (StringUtils.isNotBlank(eventoDTO.getNome())
 				&& StringUtils.isNotBlank(eventoDTO.getNomeProfessor())
 				&& StringUtils.isNotBlank(eventoDTO.getDescricao())
-				&& StringUtils.isNotBlank(eventoDTO.getAno())) {
+				&& StringUtils.isNotBlank(eventoDTO.getAno())
+				&& SacSystemUtil.isNotNull(eventoDTO.getNumeroVagas())) {
 			return true;
 		} else {
 			SacSystemUtil
@@ -77,6 +98,7 @@ public class EventoManager implements IEventoManager {
 
 	private Evento obterEvento(EventoDTO eventoDTO) {
 		Evento evento = new Evento();
+		evento.setId(eventoDTO.getId());
 		evento.setNumeroVagas(eventoDTO.getNumeroVagas());
 		evento.setNome(eventoDTO.getNome());
 		evento.setNomeProfessor(eventoDTO.getNomeProfessor());
