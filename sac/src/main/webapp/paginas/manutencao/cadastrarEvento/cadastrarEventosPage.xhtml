@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:sac="http://java.sun.com/jsf/composite/sac">
+
+<ui:composition template="/template.xhtml">
+
+	<ui:define name="title">
+		<title>#{messages.titulo_tela_inicio}</title>
+	</ui:define>
+
+	<ui:define name="content">
+		
+			<h:panelGroup id="cadastrarEventosPanel" rendered="#{cadastrarEventoMB.exibirCadastroEdicaoPanel}">
+				<ui:include src="./cadastrarEventoPanel.xhtml"/>	
+				<ui:include src="./cadastrarEventoConfirmacaoModal.xhtml"/>	
+			</h:panelGroup>		
+			
+			<h:panelGroup id="listagemEventosPanel" rendered="#{cadastrarEventoMB.exibirListagemPanel}">
+				<ui:include src="./listarEventosPanel.xhtml"/>
+			</h:panelGroup>		
+			
+								
+	</ui:define>
+
+</ui:composition>
+
+</html>

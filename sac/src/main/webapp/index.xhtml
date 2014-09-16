@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+
+<h:head>
+	<link rel="stylesheet" href="/lib/css/bootstrap.css" />
+	<link rel="stylesheet" href="/lib/css/bootstrap-theme.css" />
+	<script src="/lib/js/bootstrap.js" />
+
+	<style>
+		.top-buffer {
+			margin-top: 25px;
+		}
+	</style>
+
+	<title>#{messages.titulo_tela_inicio}</title>
+</h:head>
+<h:body>
+	#{sessaoMB.usuarioLoginDTO.nome}
+
+</h:body>
+</html>

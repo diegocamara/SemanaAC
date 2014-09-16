@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:sac="http://java.sun.com/jsf/composite/sac">
+
+<ui:composition>
+
+	<p:dialog id="cadastrarUsuarioConfirmacaoModal"
+		visible="#{cadastrarUsuarioMB.exibirModalConfirmacaoCadastro}"
+		widgetVar="cadastrarUsuarioConfirmacaoModal" closable="false"
+		draggable="false" width="700" height="130" resizable="false">
+
+		<f:facet name="header">			
+				<h:outputText value="#{messages.titulo_modal_confirmacao}"/>
+		</f:facet>
+
+		<p:panelGrid style="margin: 0 auto;" styleClass="borderNone">
+			<p:row>
+				<p:column>
+					<h:outputText value="#{messages.nome}:" style="font-weight:bold;"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cadastrarUsuarioMB.usuarioDTO.nome}"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputText value="#{messages.cpf}:" style="font-weight:bold;"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cadastrarUsuarioMB.usuarioDTO.cpf}"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputText value="#{messages.curso_graduacao}:" style="font-weight:bold;"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cadastrarUsuarioMB.usuarioDTO.curso}"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputText value="#{messages.data_nascimento}:" style="font-weight:bold;"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cadastrarUsuarioMB.usuarioDTO.descricaoDataNascimento}"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		
+		<f:facet name="footer">
+			<center>
+				<p:commandButton id="buttonConfirmarCadastrarUsuário"
+					value="#{messages.confirmar}"
+					action="#{cadastrarUsuarioMB.cadastrarUsuario}"
+					update=":#{p:component('cadastrarUsuarioPanelGroup')}"
+					oncomplete="PF('cadastrarUsuarioConfirmacaoModal').hide()" />
+				<p:commandButton id="buttonCancelarCadastrarUsuário"
+					value="#{messages.cancelar}" ajax="true"
+					oncomplete="PF('cadastrarUsuarioConfirmacaoModal').hide()" />
+			</center>
+		</f:facet>
+
+	</p:dialog>
+
+</ui:composition>
+
+</html>

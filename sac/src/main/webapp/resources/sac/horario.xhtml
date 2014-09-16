@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="horarioDTO" type="br.com.sac.dto.HorarioDTO"/>
+</composite:interface>
+
+<composite:implementation>
+
+	<p:calendar placeholder="#{messages.dia}" value="#{cc.attrs.horarioDTO.diaSemana}" converter="calendarConverter"
+				locale="br" readonlyInput="true" navigator="true"
+				pattern="#{messages.padrao_calendario}" showOn="button" />
+				
+	<p:calendar placeholder="#{messages.hora_inicio}" readonlyInput="true"
+				value="#{cc.attrs.horarioDTO.horaInicio}" pattern="#{messages.padrao_hora}"
+				timeOnly="true" locale="br" style="margin-left:35px;" />
+
+	<p:calendar placeholder="#{messages.hora_fim}" readonlyInput="true"
+				value="#{cc.attrs.horarioDTO.horaFim}" pattern="#{messages.padrao_hora}"
+				timeOnly="true" locale="br" style="margin-left:35px;" />
+
+</composite:implementation>
+
+</html>

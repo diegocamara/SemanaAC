@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:sac="http://java.sun.com/jsf/composite/sac">
+
+<ui:composition>
+
+	<style type="text/css">
+		.noBorder tr, .noBorder td {  
+    		border: none !important;  
+		}  
+	</style>
+
+	<h:panelGroup id="cadastrarUsuarioPanelGroup">
+
+		<p:panelGrid style="margin: auto;" styleClass="noBorder">
+			<p:row>
+				<p:column>			
+				<h1>#{messages.mensagem_criacao_conta}</h1>				
+				</p:column>
+				<p:column>
+					<h1>#{messages.mensagem_criacao_conta}</h1>	
+					<br/>
+					<p:inputText id="inputTextNome" value="#{cadastrarUsuarioMB.usuarioDTO.nome}" size="20" style="margin:10px;" placeholder="#{messages.nome}"/>
+					<p:inputText id="inputTextCpf" value="#{cadastrarUsuarioMB.usuarioDTO.cpf}" size="20" style="margin:10px;" placeholder="#{messages.cpf}"/>	
+					<br/>
+					<p:inputText id="inputTextCurso" value="#{cadastrarUsuarioMB.usuarioDTO.curso}" style="margin:10px;width: 468px;" placeholder="#{messages.curso_graduacao}"/>
+					
+					<br/>
+					
+					<p:calendar placeholder="#{messages.data_nascimento}" value="#{cadastrarUsuarioMB.usuarioDTO.dataNascimento}" style="margin:10px;" converter="calendarConverter" locale="br" 
+								readonlyInput="true" navigator="true" pattern="#{messages.padrao_calendario}" showOn="button" />
+					
+					<br/>
+					
+					<p:inputText id="inputTextEmail" value="#{cadastrarUsuarioMB.usuarioDTO.email}" style="margin:10px;width: 468px;" placeholder="#{messages.email}" />
+					
+					<br/>
+					
+					<p:inputText id="inputTextRepetirEmail" value="#{cadastrarUsuarioMB.usuarioDTO.emailRepetido}" style="margin:10px;width: 468px;" placeholder="#{messages.repetir_email}"/>
+					
+					<br/>
+					
+					<p:password id="inputTextSenha" value="#{cadastrarUsuarioMB.usuarioDTO.senha}" style="margin:10px;width: 468px;" placeholder="#{messages.senha}"/>
+					
+					<br/>
+					
+					<p:password id="inputTextRepetirSenha" value="#{cadastrarUsuarioMB.usuarioDTO.senhaRepetida}" style="margin:10px;width: 468px;" placeholder="#{messages.repetir_senha}"/>
+					
+					<br/>
+					
+					<p:commandButton id="buttonCadastrar" value="#{messages.cadastrar}"
+										 action="#{cadastrarUsuarioMB.validarCadastroUsuario}"										 
+										 style="font-size:18px;margin:10px;"
+										 ajax="true" process=":#{p:component('cadastrarUsuarioPanelGroup')}"
+										 update=":#{p:component('cadastrarUsuarioConfirmacaoModal')}"/>	
+					
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+
+	</h:panelGroup>
+
+	<p:commandLink value="administrador" action="#{sessaoMB.logarAdministrador}"/>
+	<br/>
+	<p:commandLink value="aluno" action="#{sessaoMB.logarUsuario}"/>
+
+</ui:composition>
+
+</html>

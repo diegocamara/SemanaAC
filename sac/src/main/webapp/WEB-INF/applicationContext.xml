@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         				   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         				   http://www.springframework.org/schema/context
+         				   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     					   http://www.springframework.org/schema/tx 
+     					   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">	
+     					   
+     <context:component-scan base-package="br.com.sac" />
+     
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/semaccomp" />
+		<property name="username" value="root" />
+		<property name="password" value="1234567" />
+	</bean>
+     <!-- 
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />		
+		<property name="url" value="jdbc:mysql://us-cdbr-cb-east-01.cleardb.net:3306/cb_semanaacademica"/>
+		<property name="username" value="b8a07f175c7a86" />
+		<property name="password" value="b56e43aa" />
+	</bean>
+      -->	
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="br.com.sac" />
+        
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+ 
+        </property>
+    </bean>
+	
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true"/>
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	
+    <tx:annotation-driven />
+     
+</beans>

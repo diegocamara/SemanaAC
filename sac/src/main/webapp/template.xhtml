@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+
+<h:head>
+	<!-- 
+	<link rel="stylesheet" href="/lib/css/bootstrap.css" />
+	<link rel="stylesheet" href="/lib/css/bootstrap-theme.css" />
+	<script src="/lib/js/bootstrap.js" />
+
+	 -->
+	<style>		
+		.borderNone tr, .borderNone td {
+    		border: none !important;
+		}
+	</style>
+	<ui:insert name="title"/>	
+</h:head>
+<h:body>
+	<p:growl id="growl" showDetail="true" autoUpdate="true" />	
+	<p:layout fullPage="true" >			
+		<p:layoutUnit position="west" size="300">
+		</p:layoutUnit>
+		<p:layoutUnit position="east" size="300">
+		</p:layoutUnit>
+		<p:layoutUnit position="center">		
+			<p:layout>
+				<p:layoutUnit position="north" size="100">			
+					<h:form id="formLogin">				
+						<p:menubar id="menuBar" style="width:90%;height:80%;margin: 0 auto;">		
+							<p:menuitem value="#{messages.label_evento}" action="#{sessaoMB.cadastrarEventos}" rendered="#{sessaoMB.administrador}" />				
+							<f:facet name="options">
+								<h:outputText value="#{messages.titulo_tela_inicio}" style="font-size:30px;font-weith:bold;" rendered="#{!sessaoMB.usuarioLogado}"/>
+								<p:inputText id="inputTextEmailLogin" value="#{sessaoMB.email}" style="margin: 10px;" placeholder="#{messages.email}" rendered="#{!sessaoMB.usuarioLogado}"/>
+								<p:inputText id="inputTextEmailSenha" value="#{sessaoMB.senha}" style="margin: 10px;" placeholder="#{messages.senha}" type="password" rendered="#{!sessaoMB.usuarioLogado}"/>
+								<p:commandButton id="buttonEntrar" value="#{messages.entrar}" style="margin: 10px;" action="#{sessaoMB.entrar}" process="#{p:component('menuBar')}" rendered="#{!sessaoMB.usuarioLogado}"/>	
+								<p:commandButton value="#{messages.sair}" style="margin:0 auto;" action="#{sessaoMB.sair}" rendered="#{sessaoMB.usuarioLogado}"/>				
+							</f:facet>
+						</p:menubar>			
+					</h:form>
+				</p:layoutUnit>			
+				<p:layoutUnit position="west" size="100">
+				</p:layoutUnit>
+				<p:layoutUnit position="east" size="100">
+				</p:layoutUnit>
+				<p:layoutUnit position="center" size="100">
+					<h:form id="formContent">
+						<ui:insert name="content"/>						
+					</h:form>				
+				</p:layoutUnit>
+			</p:layout>		
+		</p:layoutUnit>
+	</p:layout>
+				
+</h:body>
+</html>

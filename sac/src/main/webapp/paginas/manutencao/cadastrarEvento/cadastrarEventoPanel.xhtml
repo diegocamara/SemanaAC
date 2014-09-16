@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sac="http://java.sun.com/jsf/composite/sac">
+
+<ui:composition>
+	
+	<p:panel id="cadastrarEventoPanel">
+		<h:outputText value="#{messages.titulo_novo_evento}" style="font-size:30px;"/>
+		<p:panelGrid id="cadastrarEventoPanelGrid" styleClass="borderNone" style="width:100%;">
+			<p:row>
+				<p:column>
+					<p:inputText id="nomeEvento" value="#{cadastrarEventoMB.eventoDTO.nome}" placeholder="#{messages.nome}" style="width:100%;"/>
+				</p:column>
+			</p:row>			
+			<p:row>
+				<p:column>
+					<p:inputText id="nomeProfessor" value="#{cadastrarEventoMB.eventoDTO.nomeProfessor}" placeholder="#{messages.professor}" style="width:100%;"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:inputText id="anoEvento" value="#{cadastrarEventoMB.eventoDTO.ano}" placeholder="#{messages.ano}" style="width:10%;"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:inputTextarea id="descricaoEvento" value="#{cadastrarEventoMB.eventoDTO.descricao}" placeholder="#{messages.descricao}" style="width:100%;"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+				<h:outputText value="#{messages.horario}:" style="font-size:30px;"/>
+				<br/>
+					
+					<ui:repeat var="horario" value="#{cadastrarEventoMB.eventoDTO.horarios}">
+						<sac:horario horarioDTO="#{horario}"/>
+						<br/>					
+					</ui:repeat>				
+					
+					<p:commandButton  icon="ui-icon-plusthick" action="#{cadastrarEventoMB.adicionarHorario}" ajax="true" update=":#{p:component('cadastrarEventoPanel')}"/>
+					<p:commandButton  icon="ui-icon-minusthick" style="margin-left:20px;" action="#{cadastrarEventoMB.removerHorario}" ajax="true" update=":#{p:component('cadastrarEventoPanel')}"/>
+					<br/>
+															
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="text-align:right;">
+					<p:commandButton id="cadastrarNovoEventoButton" value="#{messages.cadastrar}" process=":#{p:component('cadastrarEventoPanel')}" 
+									 action="#{cadastrarEventoMB.validarEvento}" update="@form"/>
+									 
+					<p:commandButton id="botaoVoltar" value="#{messages.voltar}" process="@this" ajax="true" action="#{cadastrarEventoMB.listarEventos}"
+									 update="@form"/>				 
+									 							
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</p:panel>
+	
+</ui:composition>
+
+</html>

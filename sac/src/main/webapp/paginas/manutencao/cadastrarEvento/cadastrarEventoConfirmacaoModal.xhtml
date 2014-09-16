@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:sac="http://java.sun.com/jsf/composite/sac">
+
+<ui:composition>
+
+	<p:dialog id="cadastrarEventoConfirmacaoModal"
+		visible="#{cadastrarEventoMB.exibirModalConfirmacaoEvento}"
+		widgetVar="cadastrarEventoConfirmacaoModal" closable="false"
+		draggable="false" width="700" height="150" resizable="false">
+
+		<f:facet name="header">			
+				<h:outputText value="#{messages.titulo_modal_confirmacao}"/>
+		</f:facet>
+
+		<p:panelGrid style="margin: 0 auto;" styleClass="borderNone">
+			<p:row>
+				<p:column>
+					<h:outputText value="#{messages.nome}:" style="font-weight:bold;"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cadastrarEventoMB.eventoDTO.nome}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputText value="#{messages.professor}:" style="font-weight:bold;text-align:right;"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cadastrarEventoMB.eventoDTO.nomeProfessor}"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputText value="#{messages.ano}:" style="font-weight:bold;text-align:right;"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cadastrarEventoMB.eventoDTO.ano}"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputText value="#{messages.descricao}:" style="font-weight:bold;text-align:right;"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{cadastrarEventoMB.eventoDTO.descricao}"/>
+				</p:column>
+			</p:row>
+				<p:row>
+					<p:column>
+					</p:column>					
+				</p:row>	
+		</p:panelGrid>
+		
+		<p:outputPanel style="text-align:center;">
+						<ui:repeat var="horario" value="#{cadastrarEventoMB.eventoDTO.horarios}">
+							<h:outputText value="#{horario.descricaoConfirmacaoHorario}" />
+							<br/>														
+						</ui:repeat>
+		</p:outputPanel>
+
+		<f:facet name="footer">
+			<center>
+				<p:commandButton id="buttonConfirmarCadastrarEvento"
+					value="#{messages.confirmar}"
+					action="#{cadastrarEventoMB.confirmarCadastrarEvento}"					
+					oncomplete="PF('cadastrarEventoConfirmacaoModal').hide()" />
+				<p:commandButton id="buttonCancelarCadastrarEvento"
+					value="#{messages.cancelar}"
+					action="#{cadastrarEventoMB.cancelarModal}"
+					oncomplete="PF('cadastrarEventoConfirmacaoModal').hide()" />
+			</center>
+		</f:facet>
+
+	</p:dialog>
+
+</ui:composition>
+
+</html>
